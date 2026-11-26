@@ -24,14 +24,10 @@ body:has(.feed){height:100dvh;overflow:hidden}
 .hint{position:absolute;right:16px;top:50%;width:auto;font-family:var(--frame);font-size:15px;color:var(--muted)}
 
 /* The full post, swiped in from the right; scrolls on its own */
-.post{overflow-y:auto;overscroll-behavior-y:contain;padding:72px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
+.post{overflow-y:auto;overscroll-behavior-y:contain;padding:128px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
 .post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
-.back{display:block;margin:0 0 12px -12px;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:left}
-/* The way back stays with you while you read: it sticks to the top, fades while you scroll down, returns on scroll up. */
-.back,.single .meta{position:sticky;top:8px;z-index:3;transition:opacity .25s ease}
-.back{background:color-mix(in srgb,var(--bg) 82%,transparent);border-radius:12px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.single .meta{width:max-content;padding:4px 10px 4px 0;background:color-mix(in srgb,var(--bg) 82%,transparent)}
-.away{opacity:0;pointer-events:none}
+.end{display:flex;justify-content:center;margin-top:44px}
+.back{display:block;margin:0;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:center}
 .post h1,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
 .body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
 
@@ -46,7 +42,7 @@ body:has(.feed){height:100dvh;overflow:hidden}
 /* Bottom bar: words only; hides while scrolling down */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;padding:4px 8px calc(12px + env(safe-area-inset-bottom));
   background:color-mix(in srgb,#141517 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .3s ease}
-.bar a{flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;font-size:14px;color:#a9a7a1;text-decoration:none}
+.bar a{flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;font-size:14px;color:#a9a7a1;text-decoration:none;transition:color .4s ease}
 .bar a[aria-current]{color:#f2f0eb;font-weight:500}
 .bar.hidden{transform:translateY(100%)}
 
