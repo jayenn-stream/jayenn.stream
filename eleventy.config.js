@@ -2,6 +2,7 @@
 // The site's look lives in src/assets; posts live in src/posts. See README.md.
 import { readFile } from "node:fs/promises";
 import { makeOgImages } from "./lib/og.js";
+import { writeFonts } from "./lib/fonts.js";
 import { slugify, postSlug, tagLine, settingFor, fontFamilies, fontLinks } from "./lib/jayenn.js";
 
 const PREVIEW = process.env.PREVIEW === "1"; // private preview links need relative URLs
@@ -72,6 +73,11 @@ export default function (eleventyConfig) {
 
   // After each build: a link preview image for every post, plus one for the site.
   eleventyConfig.on("eleventy.after", async ({ dir }) => {
+    const have = await writeFonts(dir.output); // self-hosted fonts → assets/fonts + fonts.css
+    for (const p of builtPosts) {
+      const f = settingFor(p.data, p.data.palettes).font;
+      if (!have.includes(f)) console.warn(`[jayenn] ${p.page.fileSlug}: font "${f}" isn't installed, so it falls back to the frame font.`);
+    }
     const items = builtPosts.map((p) => {
       const s = settingFor(p.data, p.data.palettes);
       const text = p.data.cardQuote ? p.data.cardQuote.replace(/<br\s*\/?>/g, "\n") : tagLine(p.data);

@@ -42,6 +42,7 @@ jayenn-site/
 │   └── feed.njk, sitemap.njk, robots.njk, webmanifest.njk   made automatically
 ├── lib/
 │   ├── jayenn.js            shared rules: settings, headings, fonts
+│   ├── fonts.js             self-hosted fonts: copies files, writes assets/fonts.css
 │   └── og.js                makes the link-preview images
 ├── eleventy.config.js       the build: collects posts, makes subjects, checks contrast
 ├── AGENTS.md                instructions for any AI working on the site
@@ -71,7 +72,7 @@ The writing starts here.     A five-space gap before an undecided next thought.
 | `main` | Broad subjects. Each one gets a place in Subjects. | Yes (at least one) |
 | `secondary` | Finer threads. Shown faintly at the end of the post; searchable. | Optional |
 | `title` | A heading. Without one, the heading is the tag line: "On time, attention, running…" | Optional |
-| `font` | Any font name from Google Fonts. Blank = picked for you. | Optional |
+| `font` | Any installed font (see "A font" below). Blank = picked for you. | Optional |
 | `colours` | A palette name from `palettes.json`, or your own (see below). Blank = picked for you. | Optional |
 | `excerpt` | The words shown on the feed screen. Blank = the post's first lines. | Optional |
 | `draft: true` | Keeps the post off the site. | Optional |
@@ -95,7 +96,7 @@ Make a folder instead of a file: `src/posts/2026-12-09-tide-pool/` with an `inde
 ## Adding to the pool
 
 - **A palette:** add an entry to `src/_data/palettes.json` with `bg`, `fg`, `muted`, `accent`. Use it in any post with `colours: yourname`.
-- **A font:** just name it in a post. To have it in the link-preview images too, install it once: `npm i @fontsource/font-name`.
+- **A font:** fonts are served from the site itself (nothing is fetched from Google). To add one, install it once with `npm i @fontsource/font-name` (e.g. `@fontsource/lora`), commit the updated `package.json` and `package-lock.json`, then name it in a post. The build warns if a post names a font that isn't installed.
 
 ## Running it on your own computer (optional)
 
