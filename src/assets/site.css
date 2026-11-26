@@ -130,6 +130,11 @@ mark{background:#ecdcae;color:inherit;padding:0 2px}
 @media (prefers-reduced-motion:reduce){.row.settled .hint{animation:none}}
 
 /* Page not found: quiet, left-aligned */
+.prompt h1{margin:0 0 14px;font-size:clamp(26px,6vw,36px);font-weight:300;font-family:var(--frame)}
+.prompt p{font-family:var(--frame);font-size:15px;line-height:1.5}
+.prompt .copy{display:block;width:100%;min-height:52px;margin:18px 0;font:500 17px var(--frame);color:inherit;background:none;border:1px solid currentColor;border-radius:8px;cursor:pointer}
+.prompt textarea{display:block;width:100%;box-sizing:border-box;font:14px/1.5 var(--frame);color:inherit;background:none;border:1px solid rgba(128,128,128,.4);border-radius:8px;padding:12px}
+.prompt a{color:inherit}
 .lost{display:flex;flex-direction:column;justify-content:center;font-family:var(--frame)}
 .lost h1{margin:0 0 18px;font-size:clamp(26px,6vw,36px);font-weight:300;line-height:1.25}
 .lost a{font-size:15px;color:#7a5b2e;text-decoration:none;padding:10px 0}

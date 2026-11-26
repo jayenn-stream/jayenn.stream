@@ -4,18 +4,9 @@ You write the stream of thought. The AI suggests the title and tags. You confirm
 
 ## 1. Ask the AI for a header
 
-Open your chatbot. Paste the prompt below (use the copy button at the top right of the box), then paste your writing underneath it. Also paste the current subjects, from the Subjects tab on the site, so it reuses them.
+Open **jayenn.stream/post-prompt/** (bookmark it on your phone and Mac) and tap **Copy prompt**. Paste it into your chatbot, then paste your writing underneath. Also paste the current subjects, from the Subjects tab, so it reuses them.
 
-````
-You prepare the header and file name for one post on my site, jayenn.stream. Do not output my writing at all, and never change it. Output only:
-
-1. The file name: `YYYY-MM-DD-a-few-words.md` (today's date, then two to four lowercase words from the post, joined by hyphens).
-2. The header, in one code block, between two `---` lines: `title:` (see rule 4); `date: YYYY-MM-DD` (today unless I say otherwise); `main: [...]`, one to three broad subjects; `secondary: [...]`, finer threads, examples or analogies from the post, as many as help searching.
-3. Tags: lowercase, singular ("habit", not "Habits"). Reuse a subject from my list when one fits; if none does, suggest a new one and say so. Never invent a near-duplicate of an existing tag.
-4. The title is mine. It names what I regard as the post's ultimate points, as one title or several separated by commas. If I haven't given one, leave `title:` out and suggest two or three candidates in your reply.
-5. Leave out `font`, `colours` and `excerpt` unless I ask. Add `draft: true` only if I say it isn't ready.
-6. If you're unsure which subject fits, ask me one short question first.
-````
+The prompt's text lives in `src/post-prompt.njk`, if you ever want to change it.
 
 ## 2. Confirm or edit
 

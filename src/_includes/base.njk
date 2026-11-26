@@ -6,6 +6,7 @@
 {%- set pageTitle = (heading + " · " + site.title) if heading else site.title %}
 <title>{{ pageTitle }}</title>
 <meta name="description" content="{{ description or site.description }}">
+{%- if noindex %}<meta name="robots" content="noindex">{% endif %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <meta property="og:type" content="{{ 'article' if isPost else 'website' }}">
 <meta property="og:site_name" content="{{ site.title }}">
