@@ -4,15 +4,8 @@
   const bar = document.getElementById("bar");
   const store = { get(k){try{return sessionStorage.getItem(k)}catch{return null}}, set(k,v){try{sessionStorage.setItem(k,v)}catch{}} };
 
-  // Bar: hide on scroll down, show on scroll up, tap, or pause.
-  let last = 0, idle;
+  // The bar is always visible: hiding it on scroll only made it jump around.
   const showBar = () => bar.classList.remove("hidden");
-  const onScroll = (y) => {
-    bar.classList.toggle("hidden", y > last + 4);
-    if (y < last - 4) showBar();
-    last = y;
-    clearTimeout(idle); idle = setTimeout(showBar, 1800);
-  };
 
   if (feed) {
     const rows = [...feed.querySelectorAll(".row")];
@@ -93,7 +86,6 @@
       feed.scrollTo({ top: 0, behavior: "smooth" });
     });
   } else {
-    addEventListener("scroll", () => onScroll(scrollY), { passive: true });
     const page = document.querySelector(".single");
     if (page) { const cs = getComputedStyle(page); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); }
     // Posts tab elsewhere: return to the post you were on.

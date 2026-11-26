@@ -7,10 +7,10 @@ a{color:inherit}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 
 /* Feed: one post per screen, snapping vertically */
-body:has(.feed){height:100dvh;overflow:hidden}
+html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 .feed{height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:none}
 .feed.locked{overflow-y:hidden}
-.row{height:100dvh;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-snap-align:start;scroll-snap-stop:always;
+.row{position:relative;box-shadow:0 1px 0 var(--bg);height:100dvh;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-snap-align:start;scroll-snap-stop:always;
   overscroll-behavior-x:contain;scrollbar-width:none;background:var(--bg);color:var(--fg);font-family:var(--font),var(--frame)}
 .row::-webkit-scrollbar{display:none}
 .card,.post{flex:0 0 100%;height:100dvh;scroll-snap-align:start}
