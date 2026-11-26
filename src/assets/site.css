@@ -30,6 +30,13 @@ body:has(.feed){height:100dvh;overflow:hidden}
 .back{display:block;margin:0;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:center}
 .post h1,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
 .body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
+/* Plain Markdown extras, kept quiet: bold is clearly heavier than the light body, lists and quotes read like the text. */
+.body strong{font-weight:500}
+.body ul,.body ol{margin:0 0 1.2em;padding-left:1.4em;font-size:18px;font-weight:300;line-height:1.75}
+.body blockquote{margin:0 0 1.2em;padding:0 0 0 1.2em;opacity:.85}.body blockquote p{margin-bottom:.6em}
+.body h2,.body h3{margin:1.6em 0 .6em;font-size:1.15em;font-weight:400;line-height:1.3}
+.body hr{border:0;border-top:1px solid currentColor;opacity:.2;margin:2em 0}
+.body a{color:var(--accent);text-underline-offset:3px}
 
 
 /* The five space: an undecided gap between thoughts */

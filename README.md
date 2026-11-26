@@ -69,9 +69,9 @@ The writing starts here.     A five-space gap before an undecided next thought.
 | Field | What it does | Needed? |
 |---|---|---|
 | `date` | When the thought took this form. Decides its place in the feed (newest first). | Yes |
-| `main` | Broad subjects. Each one gets a place in Subjects. | Yes (at least one) |
-| `secondary` | Finer threads. Shown faintly at the end of the post; searchable. | Optional |
-| `title` | A heading. Without one, the heading is the tag line: "On time, attention, running…" | Optional |
+| `main` | Broad subjects, one to three. Each one gets a place in Subjects. | Yes (at least one) |
+| `secondary` | Finer threads, as many as help searching. Shown faintly at the end of the post; searchable. | Optional |
+| `title` | The heading: what you regard as the post's ultimate points. Write one, or several separated by commas. Without one, the heading falls back to the tag line ("On time, attention, running…"). | Recommended |
 | `font` | Any installed font (see "A font" below). Blank = picked for you. | Optional |
 | `colours` | A palette name from `palettes.json`, or your own (see below). Blank = picked for you. | Optional |
 | `excerpt` | The words shown on the feed screen. Blank = the post's first lines. | Optional |
@@ -89,6 +89,10 @@ The build warns you if any text would be too faint to read.
 
 **Tags:** keep them lowercase and singular ("habit", not "Habits"). The build warns about near-duplicates like "run" / "running".
 
+## Formatting inside a post
+
+Plain Markdown works: `*italic*`, `**bold**`, `[link text](https://address)`, a blank line for a new paragraph, `> ` at the start of a line for a quotation, `- ` for a list, `## ` for a heading. To break a line inside a paragraph, end the line with two spaces or a backslash. Most posts need none of it. Italics are a slanted version of the post's own font, not a true italic face.
+
 ## A designed post (scrollytelling or custom)
 
 Make a folder instead of a file: `src/posts/2026-12-09-tide-pool/` with an `index.md` (same header as above) plus any `style.css`, `scene.js`, images. The frame (bar, swipe, footer) wraps it automatically, and its files only load on that post. Ask an AI to design it inside that folder; it should read `AGENTS.md` first.
@@ -105,6 +109,75 @@ npm install        # once
 npm run serve      # live preview at http://localhost:8080
 npm run build      # makes the finished site in _site/
 ```
+
+## Turning your writing into a post (with an AI)
+
+Paste this prompt, then your writing, then the list of current subjects (the Subjects tab on the site, or the `main:` lines in `src/posts/`). Save the prompt in your chatbot's custom instructions, project or "Gem" so you only paste the writing.
+
+> You turn my writing into one post file for my site, jayenn.stream. Rules:
+> 1. **Never change my words.** No rewording, tidying or improving. Leave my paragraphs, punctuation and capitalisation as they are. Keep every run of five spaces between words exactly, and every five dots (`.....`) exactly.
+> 2. **Output one Markdown file:** first its file name, `YYYY-MM-DD-a-few-words.md` (today's date, then two to four lowercase words from the post, joined by hyphens), then the whole file in one code block.
+> 3. **The file starts with a header between two `---` lines:** `title:` (see rule 4); `date: YYYY-MM-DD` (today unless I say otherwise); `main: [...]`, one to three broad subjects; `secondary: [...]`, finer threads, examples or analogies from the post, as many as help searching. Then my writing.
+> 4. **The title is mine.** It names what I regard as the post's ultimate points, as one title or several separated by commas. If I haven't given one, don't invent it: leave `title:` out of the file and, in your reply, suggest two or three candidate titles for me to choose from.
+> 5. **Tags:** lowercase, singular ("habit", not "Habits"). Reuse a subject from my list when one fits; if none does, suggest a new one and say so. Never invent a near-duplicate of an existing tag.
+> 6. **Leave out** `font`, `colours` and `excerpt` unless I ask. Add `draft: true` only if I say it isn't ready.
+> 7. If you're unsure which subject fits, ask me one short question before writing the file.
+
+Check the file's tags, then save it in `src/posts/` through **Add file → Create new file** on GitHub, and commit.
+
+## Adding a post, step by step
+
+A worked example: the post written on 26 Nov 2026, "justified true belief". The whole process takes about five minutes.
+
+**1. Turn the writing into a post file.** (Or do it by hand: copy `docs/post-template.md`, fill in the date and tags, paste your writing under the second `---`, and name the file `YYYY-MM-DD-a-few-words.md`. It must be saved in `src/posts/`, not left in `docs/`.) Open your chatbot with the prompt saved from the section above, then paste your writing and the current subjects. It returns a file name and the file. For this post:
+
+File name: `2026-11-26-justified-true-belief.md`
+
+```markdown
+---
+title: Knowledge of objects
+date: 2026-11-26
+main: [knowledge]
+secondary: [justified true belief, propositional knowledge, sensory experience]
+---
+Knowledge is justified true belief, it is said.     Is my sensory experience of any close object here now, a phone, a tv cabinet, etc not knowledge of those things?.     It is. So, that knowledge originally spoken about must implicitly mean propostional knowledge.     I vaguely recall SEP says this near the top. Yes it does.
+```
+
+Your words are never changed, typos included ("propostional" stays as written until you fix it yourself). The gaps are five spaces.
+
+**2. Check the title and tags.** The title is your own wording for the post's ultimate points (several can be separated by commas). Reuse an existing subject if one fits (the Subjects tab lists them). A new `main` tag creates a new subject, so make it deliberately: lowercase, singular. Secondary tags are free.
+
+**3. Add it to GitHub.** In the repo, open the `src` folder, then `posts`. Click **Add file → Create new file**. Type the file name in the name box. Paste the file's text, five spaces included, into the editor. Click **Commit changes**.
+
+To keep a post off the site until you're ready, add `draft: true` under the date. Remove that line later and commit to publish it.
+
+**4. Wait for the build.** Open the **Actions** tab. A green tick in about a minute means it's live. A red cross means a mistake in the file (a missing `---`, a bad date): open the run and read the error, or send it to the chatbot.
+
+**5. Check the result.** Open jayenn.stream, force-refresh, and look for these:
+- The post is first in the feed, as one screen of text, with no date and no tags.
+- Swiping (or tapping, or →) opens the whole post. The tags and date are at the end, with the ← below them.
+- The five-space gaps appear as wider gaps in the text.
+- The Subjects tab shows the new subject, and the Titles tab lists the post.
+- Pasting the post's link into a message shows a preview image.
+
+**Changing a post later.** Open the file in `src/posts/`, click the pencil, edit, and commit. A substantially changed post gets a new `date` so it moves to the top; fixing a typo can keep the old date.
+
+## Working with an AI chatbot
+
+Give the chatbot this briefing, then the few files the job touches (see below). Always ask for complete replacement files and only the ones that change.
+
+> You're helping me edit my personal static website, jayenn.stream, built with Eleventy and hosted on GitHub Pages. Read `AGENTS.md`, `README.md` and `docs/design.md` first (pasted below, or at github.com/jayenn-stream/jayenn.stream). They explain the rules and the decisions already made; don't undo them. Describe the change and ask before building anything large. Then give me complete replacement files, only the ones that change, with paths. Don't add dependencies or change the build. Keep text contrast at WCAG AA and keep the site working without JavaScript. I'll upload the files on GitHub and check the build.
+
+Which files to give it:
+
+| Change | Files |
+|---|---|
+| Looks (colours, spacing, type) | `src/assets/site.css` |
+| Behaviour (swipe, bar, search) | `src/assets/site.js`, `src/assets/site.css` |
+| Layout of a page | `src/_includes/*.njk`, the page's `src/*.njk`, `src/assets/site.css` |
+| A post | the post's `.md` file |
+
+After uploading, check the Actions tab for a green tick, then force-refresh your phone: browsers cache CSS for a few minutes. To undo a change, open the commit in the repo's History and revert it.
 
 ## Publishing
 
