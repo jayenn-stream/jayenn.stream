@@ -6,7 +6,7 @@
 #     They needn't match the title, but they must differ from every other post's words. Don't change them later: it breaks old links.
 #   - The name must end in .md (not .md.txt).
 # Delete these comment lines in your copy if you like.
-title: Write the title here, or several titles separated by commas
+title: Write the title here, or several titles separated by semicolons (A; B shows as A · B)
 date: 2026-12-01
 main: [subject]
 secondary: [a finer thread, another thread, as many as help searching]

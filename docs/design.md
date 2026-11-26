@@ -39,7 +39,7 @@ The tone is objective, not "my opinions": the author's name stays out of the nav
 
 ## A post
 
-- Heading: the `title`, which the author writes to name what they regard as the post's ultimate points (one, or several separated by commas; free text, left-aligned, wrapping onto more lines if long). Without a `title`, the heading falls back to "On " plus its tags. Titles are not animated or scrolled: a drifting line was considered and rejected as irritating. A list form (`title: [a, b, c]`, with the post listed under each title in the Titles tab) is possible later if wanted.
+- Heading: the `title`, which the author writes to name what they regard as the post's ultimate points (one, or several separated by semicolons, shown as centre dots, so commas stay free to use; free text, left-aligned, wrapping onto more lines if long). Without a `title`, the heading falls back to "On " plus its tags. Titles are not animated or scrolled: a drifting line was considered and rejected as irritating. A list form (`title: [a, b, c]`, with the post listed under each title in the Titles tab) is possible later if wanted.
 - Tags are separate from the heading: keep `main` to one to three subjects (they are navigation) and be liberal with `secondary` (search).
 - The end of every post: one line of tags (main in the accent colour, secondary fainter), then the date with a share icon (share sheet, or copy the link).
 - Dates are secondary. If an old post is substantially edited, it gets a new date; old posts aren't casually edited.

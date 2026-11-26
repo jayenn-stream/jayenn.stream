@@ -71,7 +71,7 @@ The writing starts here.     A five-space gap before an undecided next thought.
 | `date` | When the thought took this form. Decides its place in the feed (newest first). | Yes |
 | `main` | Broad subjects, one to three. Each one gets a place in Subjects. | Yes (at least one) |
 | `secondary` | Finer threads, as many as help searching. Shown faintly at the end of the post; searchable. | Optional |
-| `title` | The heading: what you regard as the post's ultimate points. Write one, or several separated by commas. Without one, the heading falls back to the tag line ("On time, attention, running…"). | Recommended |
+| `title` | The heading: what you regard as the post's ultimate points. Write one, or several separated by semicolons (`A; B` shows as "A · B"). Commas in a title stay commas. Without one, the heading falls back to the tag line ("On time, attention, running…"). | Recommended |
 | `font` | Any installed font (see "A font" below). Blank = picked for you. | Optional |
 | `colours` | A palette name from `palettes.json`, or your own (see below). Blank = picked for you. | Optional |
 | `excerpt` | The words shown on the feed screen. Blank = the post's first lines. | Optional |
