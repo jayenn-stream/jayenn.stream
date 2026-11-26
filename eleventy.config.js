@@ -1,6 +1,6 @@
 // Jayenn site build. Kept thin on purpose: collect posts, make subject pages, a few filters.
 // The site's look lives in src/assets; posts live in src/posts. See README.md.
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { makeOgImages } from "./lib/og.js";
 import { writeFonts } from "./lib/fonts.js";
 import { slugify, postSlug, tagLine, settingFor, fontFamilies, fontLinks } from "./lib/jayenn.js";
@@ -69,6 +69,21 @@ export default function (eleventyConfig) {
     const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
     for (const [name, p] of Object.entries(pals)) for (const k of ["fg", "muted", "accent"])
       if (ratio(p[k], p.bg) < 4.5) console.warn(`[jayenn] palette "${name}": ${k} is too faint (${ratio(p[k], p.bg).toFixed(2)}:1, needs 4.5)`);
+  });
+
+  // Before each build: warn about invisible characters in posts (zero-width marks, no-break spaces, stray
+  // byte-order marks), which AI tools or word processors can leave behind. Warns only; never edits your words.
+  const HIDDEN = /[\u00A0\u00AD\u180E\u200B-\u200F\u2028-\u202F\u2060-\u206F\uFEFF\u{E0000}-\u{E007F}]/u;
+  const mdFiles = async (dir) => (await readdir(dir, { withFileTypes: true }).catch(() => []))
+    .flatMap((e) => e.isDirectory() ? [mdFiles(`${dir}/${e.name}`)] : e.name.endsWith(".md") ? [[`${dir}/${e.name}`]] : [])
+    .reduce(async (acc, p) => [...(await acc), ...(await p)], []);
+  eleventyConfig.on("eleventy.before", async () => {
+    for (const file of await mdFiles("src/posts")) {
+      (await readFile(file, "utf8")).split("\n").forEach((line, i) => {
+        const m = line.match(new RegExp(HIDDEN.source, "gu"));
+        if (m) console.warn(`[jayenn] ${file}:${i + 1} has invisible characters (${[...new Set(m)].map((c) => "U+" + c.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")).join(", ")}). Retype that line, or paste it as plain text.`);
+      });
+    }
   });
 
   // After each build: a link preview image for every post, plus one for the site.

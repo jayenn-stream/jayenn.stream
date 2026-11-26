@@ -112,18 +112,21 @@ npm run build      # makes the finished site in _site/
 
 ## Turning your writing into a post (with an AI)
 
-Paste this prompt, then your writing, then the list of current subjects (the Subjects tab on the site, or the `main:` lines in `src/posts/`). Save the prompt in your chatbot's custom instructions, project or "Gem" so you only paste the writing.
+**Safest: the AI writes only the header, and you paste your own words.** An AI that retypes your writing can change it without telling you: swapping five spaces for no-break spaces (which stops the gap showing), straightening or curling quotes, or leaving invisible characters. If it never retypes your words, none of that can happen, and nothing of the AI's goes into your text. Save this prompt in your chatbot's custom instructions, project or "Gem", then paste your writing and the list of current subjects (the Subjects tab, or the `main:` lines in `src/posts/`).
 
-> You turn my writing into one post file for my site, jayenn.stream. Rules:
-> 1. **Never change my words.** No rewording, tidying or improving. Leave my paragraphs, punctuation and capitalisation as they are. Keep every run of five spaces between words exactly, and every five dots (`.....`) exactly.
-> 2. **Output one Markdown file:** first its file name, `YYYY-MM-DD-a-few-words.md` (today's date, then two to four lowercase words from the post, joined by hyphens), then the whole file in one code block.
-> 3. **The file starts with a header between two `---` lines:** `title:` (see rule 4); `date: YYYY-MM-DD` (today unless I say otherwise); `main: [...]`, one to three broad subjects; `secondary: [...]`, finer threads, examples or analogies from the post, as many as help searching. Then my writing.
-> 4. **The title is mine.** It names what I regard as the post's ultimate points, as one title or several separated by commas. If I haven't given one, don't invent it: leave `title:` out of the file and, in your reply, suggest two or three candidate titles for me to choose from.
-> 5. **Tags:** lowercase, singular ("habit", not "Habits"). Reuse a subject from my list when one fits; if none does, suggest a new one and say so. Never invent a near-duplicate of an existing tag.
-> 6. **Leave out** `font`, `colours` and `excerpt` unless I ask. Add `draft: true` only if I say it isn't ready.
-> 7. If you're unsure which subject fits, ask me one short question before writing the file.
+> You prepare the header and file name for one post on my site, jayenn.stream. **Do not output my writing at all, and never change it.** Output only:
+> 1. The file name: `YYYY-MM-DD-a-few-words.md` (today's date, then two to four lowercase words from the post, joined by hyphens).
+> 2. The header, in one code block, between two `---` lines: `title:` (see rule 4); `date: YYYY-MM-DD` (today unless I say otherwise); `main: [...]`, one to three broad subjects; `secondary: [...]`, finer threads, examples or analogies from the post, as many as help searching.
+> 3. **Tags:** lowercase, singular ("habit", not "Habits"). Reuse a subject from my list when one fits; if none does, suggest a new one and say so. Never invent a near-duplicate of an existing tag.
+> 4. **The title is mine.** It names what I regard as the post's ultimate points, as one title or several separated by commas. If I haven't given one, leave `title:` out and suggest two or three candidates in your reply.
+> 5. Leave out `font`, `colours` and `excerpt` unless I ask. Add `draft: true` only if I say it isn't ready.
+> 6. If you're unsure which subject fits, ask me one short question first.
 
-Check the file's tags, then save it in `src/posts/` through **Add file → Create new file** on GitHub, and commit.
+Then make the file yourself: copy `docs/post-template.md`, replace its header with the AI's, and paste your own writing under the second `---`. Check the tags, then follow "Adding a post, step by step" below.
+
+**If you do want the AI to give you the whole file,** add to the prompt: "Then output the whole file, with my writing copied exactly: every run of five spaces between words, every five dots (`.....`), and all my punctuation and capitalisation unchanged." The build will warn if the result contains invisible characters (see below), but it cannot tell you the AI changed a word, so read the file through.
+
+**Invisible characters.** The build checks every post for zero-width marks, no-break spaces and similar. If it finds any, the build log shows a line starting `[jayenn] src/posts/…` with the file, the line number and the character codes. (On GitHub: **Actions** tab → the latest run → **build** → the **Run npm run build** step.) It only warns; it never edits your words. To fix a flagged line, retype it, or paste it as plain text. GitHub also shows a warning banner above a file containing hidden Unicode.
 
 ## Adding a post, step by step
 
