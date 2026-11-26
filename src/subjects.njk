@@ -1,0 +1,56 @@
+---
+layout: base.njk
+nav: subjects
+permalink: /subjects/
+heading: Subjects
+description: Every subject and title on Jayenn.
+eleventyComputed:
+  fonts: ""
+  jsonld: '{"@context":"https://schema.org","@type":"CollectionPage","name":"Subjects"}'
+---
+<main class="page find">
+  <h1 class="sr">Subjects</h1>
+  <label class="search"><span class="sr">Search</span><input type="search" id="q" placeholder="Title, date or subject…" autocomplete="off"></label>
+
+  <div class="tabs" role="tablist" id="tabs">
+    <button type="button" role="tab" aria-selected="true" aria-controls="by-subject" id="tab-subject">Subjects</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="by-title" id="tab-title">Titles</button>
+  </div>
+
+  <section id="by-subject" role="tabpanel" aria-labelledby="tab-subject">
+    <ul class="subjects">
+    {%- for s in collections.subjects | sort(false, false, "name") %}
+      <li><details name="subject" id="{{ s.slug }}">
+        <summary><span>{{ s.name }}</span><span class="count">{{ s.posts.length }}</span></summary>
+        <ul class="titles">
+        {%- for p in s.posts %}
+          <li><a href="/subjects/{{ s.slug }}/#{{ p.data.anchor or p.page.fileSlug }}">{{ p.data | tagLine }}</a></li>
+        {%- endfor %}
+        </ul>
+      </details></li>
+    {%- endfor %}
+    </ul>
+  </section>
+
+  <section id="by-title" role="tabpanel" aria-labelledby="tab-title" hidden>
+    <ul class="titles all" id="title-list">
+    {%- for p in collections.posts %}
+      <li data-t="{{ p.date | isoDate }}"><a href="/#{{ p.data.anchor or p.page.fileSlug }}"><span>{{ p.data | tagLine }}</span><time class="d" datetime="{{ p.date | isoDate }}">{{ p.date | shortDate }}</time></a></li>
+    {%- endfor %}
+    </ul>
+    <p class="datebar"><button type="button" id="dates" aria-pressed="false">dates</button><span id="order" hidden><button type="button" data-order="new" aria-pressed="true">newest first</button><button type="button" data-order="old" aria-pressed="false">oldest first</button></span></p>
+  </section>
+
+  <section id="results" hidden aria-live="polite">
+    <div data-group="title"><h2 class="label">Titles</h2><ul class="titles"></ul></div>
+    <div data-group="date"><h2 class="label">Dates</h2><ul class="titles"></ul></div>
+    <div data-group="tag"><h2 class="label">Tagged</h2><ul class="titles"></ul></div>
+    <p class="none" hidden>Nothing found.</p>
+  </section>
+
+  <script type="application/json" id="index">[
+  {%- for p in collections.posts %}
+    {"t": {{ (p.data | tagLine) | dump | safe }}, "i": "{{ p.data.anchor or p.page.fileSlug }}", "d": {{ (p.date | dateWords) | dump | safe }}, "s": {{ (p.date | shortDate) | dump | safe }}, "g": {{ ((p.data.main or []) | join(" ") + " " + (p.data.secondary or []) | join(" ")) | lower | dump | safe }}}{% if not loop.last %},{% endif %}
+  {%- endfor %}
+  ]</script>
+</main>

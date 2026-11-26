@@ -1,0 +1,13 @@
+---
+layout: base.njk
+nav: posts
+eleventyComputed:
+  fonts: "{{ collections.posts | fontLinks | safe }}"
+  jsonld: '{"@context":"https://schema.org","@type":"WebSite","name":"Jayenn","url":"https://jayenn.stream/","description":"Streams of thought: another mind''s attempt to keep up with reality."}'
+---
+<main class="feed" id="feed">
+{%- for post in collections.posts %}
+{% include "row.njk" %}
+{%- endfor %}
+</main>
+<p class="keys" aria-hidden="true">↑ ↓ posts · → open · ← back</p>

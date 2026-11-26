@@ -1,0 +1,15 @@
+---
+layout: base.njk
+nav: posts
+isPost: true
+---
+{%- set s = { data: {page: page, font: font, colours: colours} } %}
+{%- set st = s.data | setting(palettes) %}
+<main class="single" style="--bg:{{ st.bg }};--fg:{{ st.fg }};--muted:{{ st.muted }};--accent:{{ st.accent }};--font:'{{ st.font }}'">
+  <article>
+    <p class="meta"><a href="/#{{ anchor or page.fileSlug }}">← Posts</a></p>
+    <h1>{{ heading }}</h1>
+    <div class="body">{{ content | safe }}</div>
+    {% set d = { page: page, main: main, secondary: secondary, title: title, date: page.date } %}{% include "footer.njk" %}
+  </article>
+</main>

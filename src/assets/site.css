@@ -1,0 +1,140 @@
+/* Jayenn — frame styles. Each post sets --bg --fg --muted --accent --font. */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:focus:not(:focus-visible){outline:none}
+:root{--frame:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;--bar-h:68px}
+html,body{margin:0;background:#141517;color:#eae8e3;font-family:var(--frame);-webkit-text-size-adjust:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+/* Feed: one post per screen, snapping vertically */
+body:has(.feed){height:100dvh;overflow:hidden}
+.feed{height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:none}
+.feed.locked{overflow-y:hidden}
+.row{height:100dvh;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-snap-align:start;scroll-snap-stop:always;
+  overscroll-behavior-x:contain;scrollbar-width:none;background:var(--bg);color:var(--fg);font-family:var(--font),var(--frame)}
+.row::-webkit-scrollbar{display:none}
+.card,.post{flex:0 0 100%;height:100dvh;scroll-snap-align:start}
+
+/* Feed screen: always centred */
+.card{position:relative;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 clamp(24px,7vw,64px) var(--bar-h);cursor:pointer;max-width:100%}
+.card>*{max-width:34rem;margin-left:auto;margin-right:auto;width:100%}
+.meta{margin:0;font-family:var(--frame);font-size:14px;color:var(--muted)}
+.card h2{margin:0;font-size:clamp(26px,7.5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.01em}
+.lede{margin:0;font-size:18px;font-weight:300;line-height:1.6;opacity:.88}
+.hint{position:absolute;right:16px;top:50%;width:auto;font-family:var(--frame);font-size:15px;color:var(--muted)}
+
+/* The full post, swiped in from the right; scrolls on its own */
+.post{overflow-y:auto;overscroll-behavior-y:contain;padding:72px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
+.post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
+.back{display:block;margin:0 0 12px -12px;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:left}
+.post h1,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
+.body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
+
+
+/* The five space: an undecided gap between thoughts */
+.gap{display:inline-block;width:2.2em}
+
+/* Standalone post page */
+.single{min-height:100dvh;background:var(--bg);color:var(--fg);font-family:var(--font),var(--frame);padding:56px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
+.single .meta{margin-bottom:28px}.single .meta a{text-decoration:none;border-bottom:1px solid currentColor}
+
+/* Bottom bar: words only; hides while scrolling down */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;padding:4px 8px calc(12px + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,#141517 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .3s ease}
+.bar a{flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;font-size:14px;color:#a9a7a1;text-decoration:none}
+.bar a[aria-current]{color:#f2f0eb;font-weight:500}
+.bar.hidden{transform:translateY(100%)}
+
+/* Desktop: the bar becomes a slim side rail */
+@media (min-width:900px){
+  /* Desktop: the bar becomes a slim list on the left, in the colours of what's on screen */
+  .bar{top:0;right:auto;bottom:0;width:140px;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 0 0 40px;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .bar a{flex:0;justify-content:flex-start;min-height:44px;color:var(--rail-muted,#6a655c)}
+  .bar a[aria-current]{color:var(--rail-fg,#22201c)}
+  .bar.hidden{transform:none}
+  .card,.post,.single,.page{padding-left:180px;padding-right:180px}
+  .card{padding-bottom:0}
+  .card>*{max-width:40rem}
+  .card h2{font-size:clamp(34px,3.4vw,48px)}
+  .lede{font-size:21px}
+  .post>*,.single article{max-width:40rem}
+  .body p{font-size:19px}
+  .hint{right:calc(180px + (100% - 360px - min(40rem, 100% - 360px)) / 2 - 44px)}
+  .keys{display:block}
+}
+.keys{display:none;position:fixed;right:40px;bottom:28px;z-index:4;margin:0;font:400 12px var(--frame);color:var(--rail-muted,#6a655c);pointer-events:none}
+@media (hover:none){.keys{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* The motto: stands out on its card and at the top of the Here? post */
+.card.quoted{align-items:center;text-align:center}
+.quote{margin:0;font-family:'Jost',var(--frame);font-size:clamp(28px,8vw,40px);font-weight:300;line-height:1.3}
+.follow{font-family:var(--frame);font-size:15px}
+.motto{margin:8px auto 40px;text-align:left}
+.motto blockquote{margin:0}
+.motto p{margin:0 0 14px;font-family:'Jost',var(--frame);font-size:clamp(28px,8vw,40px);font-weight:300;line-height:1.3}
+.meta.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+
+
+/* Post footer: tags, then date with share */
+.pfoot{margin-top:28px;font-family:var(--frame);font-size:13px;line-height:1.55;color:var(--muted)}
+.pfoot p{margin:0}
+.pfoot a{text-decoration:none;padding:8px 0}
+.pfoot .main{color:var(--accent)}
+.pfoot .sec{color:var(--muted)}
+.pfoot .when{display:flex;align-items:center;gap:2px;margin-top:4px}
+.share{width:44px;height:44px;margin-left:-6px;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;color:var(--accent);cursor:pointer}
+.share.done{font-size:12px;width:auto;padding:0 10px}
+
+/* Subjects page: simple, sans, no lines */
+.page{min-height:100dvh;background:#f6f3ec;color:#22201c;padding:44px clamp(24px,7vw,64px) calc(var(--bar-h) + 48px)}
+.page>*{max-width:34rem;margin-left:auto;margin-right:auto}
+.find{font-family:var(--frame);font-weight:300}
+.search{display:block}
+.search input{width:100%;font:300 17px var(--frame);color:#22201c;background:#ece7dc;border:0;border-radius:10px;padding:12px 14px}
+.search input::placeholder{color:#6a655c}
+.tabs{display:flex;gap:18px;margin-top:14px}
+.tabs button{font:400 13px var(--frame);background:none;border:0;padding:12px 0;color:#6a655c;cursor:pointer}
+.tabs button[aria-selected="true"]{color:#22201c;font-weight:500}
+.subjects,.titles{list-style:none;padding:0;margin:0}
+.subjects summary{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;font-size:20px;cursor:pointer;list-style:none}
+.subjects summary::-webkit-details-marker{display:none}
+.subjects details[open]{background:#ece7dc;margin:0 -14px;padding:0 14px 6px;border-radius:10px}
+.count{font-size:12px;color:#6a655c}
+.titles a{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:7px 0;text-decoration:none;font-size:17px;color:#4a463f}
+.subjects .titles a{padding-left:14px}
+.titles .d{flex:0 0 78px;text-align:left;font-size:11px;color:#6a655c;white-space:nowrap}
+#by-title:not(.dated) .d{display:none}
+.datebar{display:flex;gap:16px;margin-top:20px}
+.datebar button{font:400 12px var(--frame);background:none;border:0;padding:12px 0;color:#6a655c;cursor:pointer}
+.datebar button[aria-pressed="true"]{color:#22201c}
+.datebar span{display:flex;gap:16px}
+.label{font:400 12px var(--frame);color:#6a655c;margin:22px 0 2px}
+.none{color:#6a655c}
+mark{background:#ecdcae;color:inherit;padding:0 2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* The → on a settled feed screen drifts gently, as a quiet "this way". Stops after a few posts. */
+@keyframes nudge{0%,60%,100%{transform:translateX(0)}30%{transform:translateX(6px)}}
+.row.settled .hint{animation:nudge 3.2s ease-in-out .8s infinite}
+.feed.hinted .hint{animation:none}
+@media (prefers-reduced-motion:reduce){.row.settled .hint{animation:none}}
+
+/* Page not found: quiet, left-aligned */
+.lost{display:flex;flex-direction:column;justify-content:center;font-family:var(--frame)}
+.lost h1{margin:0 0 18px;font-size:clamp(26px,6vw,36px);font-weight:300;line-height:1.25}
+.lost a{font-size:15px;color:#7a5b2e;text-decoration:none;padding:10px 0}
+
+/* Dark mode: the Subjects and not-found pages follow the phone or computer's setting */
+@media (prefers-color-scheme:dark){
+  .page{background:#1b1d1f;color:#eae8e3}
+  .search input{background:#2a2d30;color:#eae8e3}
+  .search input::placeholder,.count,.titles .d,.label,.none,.tabs button,.datebar button{color:#a9a7a1}
+  .tabs button[aria-selected="true"],.datebar button[aria-pressed="true"]{color:#eae8e3}
+  .subjects details[open]{background:#2a2d30}
+  .titles a{color:#c9c7c1}
+  mark{background:#5c4b25}
+  .lost a{color:#c9b28a}
+  body:has(.page) .bar{--rail-fg:#eae8e3;--rail-muted:#a9a7a1}
+}

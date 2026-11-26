@@ -1,0 +1,8 @@
+{
+  "ivory":  { "bg": "#f6f3ec", "fg": "#22201c", "muted": "#6a655c", "accent": "#7a5b2e" },
+  "slate":  { "bg": "#1b1d1f", "fg": "#eae8e3", "muted": "#a9a7a1", "accent": "#c9b28a" },
+  "forest": { "bg": "#1f3a33", "fg": "#f1ece0", "muted": "#b8c4bb", "accent": "#e3c98f" },
+  "mist":   { "bg": "#dfe5ea", "fg": "#1a2430", "muted": "#4c5866", "accent": "#2f5a7a" },
+  "sand":   { "bg": "#efe2d3", "fg": "#3a2a1e", "muted": "#6e5847", "accent": "#8a4b2a" },
+  "paper":  { "bg": "#ffffff", "fg": "#111111", "muted": "#5f5f5f", "accent": "#3b3b8f" }
+}

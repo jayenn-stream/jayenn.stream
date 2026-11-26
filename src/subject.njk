@@ -1,0 +1,20 @@
+---
+layout: base.njk
+nav: subjects
+pagination:
+  data: collections.subjects
+  size: 1
+  alias: subject
+permalink: "/subjects/{{ subject.slug }}/"
+eleventyComputed:
+  heading: "{{ subject.name | capitalize }}"
+  description: "Streams of thought on {{ subject.name }}."
+  fonts: "{{ subject.posts | fontLinks | safe }}"
+  jsonld: '{"@context":"https://schema.org","@type":"CollectionPage","name":"{{ subject.name }}"}'
+---
+<main class="feed" id="feed">
+{%- for post in subject.posts %}
+{% include "row.njk" %}
+{%- endfor %}
+</main>
+<p class="keys" aria-hidden="true">↑ ↓ posts · → open · ← back</p>

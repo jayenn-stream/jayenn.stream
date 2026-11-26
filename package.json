@@ -1,0 +1,26 @@
+{
+  "name": "jayenn",
+  "version": "1.0.0",
+  "description": "jayenn.stream: streams of thought",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "preview": "PREVIEW=1 eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "3.1.8",
+    "@fontsource/figtree": "5.3.0",
+    "@fontsource/fraunces": "5.3.0",
+    "@fontsource/hanken-grotesk": "5.3.0",
+    "@fontsource/inter": "5.3.0",
+    "@fontsource/jost": "5.3.0",
+    "@fontsource/manrope": "5.3.0",
+    "@resvg/resvg-js": "2.6.2",
+    "satori": "0.12.2"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}

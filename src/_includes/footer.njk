@@ -1,0 +1,12 @@
+<footer class="pfoot">
+  {%- if (d.main and d.main.length) or (d.secondary and d.secondary.length) %}
+  <p class="tags">
+    {%- for t in d.main or [] %}<a class="main" href="/subjects/#{{ t | slug }}">{{ t }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    {%- if d.secondary and d.secondary.length %}{% if d.main and d.main.length %} · {% endif %}{% for t in d.secondary %}<a class="sec" href="/subjects/#find-{{ t | slug }}">{{ t }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}
+  </p>
+  {%- endif %}
+  <p class="when"><time datetime="{{ (d.page.date or d.date) | isoDate }}">{{ (d.page.date or d.date) | shortDate }}</time>
+    <button type="button" class="share" data-url="{{ site.url }}{{ d.page.url }}" data-title="{{ d | tagLine }}" aria-label="Share">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>
+    </button></p>
+</footer>
