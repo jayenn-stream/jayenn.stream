@@ -6,7 +6,7 @@
 #     They needn't match the title, but they must differ from every other post's words. Don't change them later: it breaks old links.
 #   - The name must end in .md (not .md.txt).
 # Delete these comment lines in your copy if you like.
-title: Humans benefit from each other, why the rich get richer, more population means less scarcity
+title: Humans benefit from each other; Why the rich get richer; More population means less scarcity
 date: 2026-11-11
 main: [economics, population]
 secondary: [scarcity, wealth, human cooperation, trade, productivity, procreation, sex, mutual benefit]
