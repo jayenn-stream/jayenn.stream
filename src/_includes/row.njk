@@ -1,17 +1,27 @@
 {%- set s = post.data | setting(palettes) %}
+{%- set sp = false if post.data.cardQuote else (post.content | splitPost(post.data.excerpt)) %}
 <section class="row" id="{{ post.data.anchor or post.page.fileSlug }}" style="--bg:{{ s.bg }};--fg:{{ s.fg }};--muted:{{ s.muted }};--accent:{{ s.accent }};--font:'{{ s.font }}'">
   <article class="card{% if post.data.cardQuote %} quoted{% endif %}" tabindex="0" aria-label="{{ post.data | tagLine }}">
     {%- if post.data.cardQuote %}
     <p class="quote">{{ post.data.cardQuote | safe }}</p>
     {%- else %}
     <h2>{{ post.data | tagLine }}</h2>
+    {%- if sp %}
+    <div class="lede">{{ sp.lede | safe }}</div>
+    {%- else %}
     <p class="lede">{{ post.content | excerpt(post.data.excerpt) | safe }}</p>
+    {%- endif %}
     {%- endif %}
     <span class="hint" aria-hidden="true">→</span>
   </article>
-  <div class="post">
+  <div class="post{% if sp %} cont{% endif %}">
+    {%- if sp %}
+    <h1 class="sr">{{ post.data | tagLine }}</h1>
+    {%- if sp.rest %}<div class="body">{{ sp.rest | safe }}</div>{% endif %}
+    {%- else %}
     <h1>{{ post.data | tagLine }}</h1>
     <div class="body">{{ post.content | safe }}</div>
+    {%- endif %}
     {% set d = post.data %}{% include "footer.njk" %}
     <div class="end"><button type="button" class="back" aria-label="Back to the feed">←</button></div>
   </div>

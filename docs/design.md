@@ -57,3 +57,8 @@ The tone is objective, not "my opinions": the author's name stays out of the nav
 - Email signup for new posts through a newsletter service reading the RSS feed.
 - A scrollytelling template and a first scrollytelling post.
 - A larger pool of fonts and palettes.
+
+## The swiped-to screen continues the card
+
+On the feed, the card shows the title and the opening of the post, cut at the end of a sentence (about 240 characters, up to 380 if the first sentence is long). Swiping across shows the rest of the post from that point, with no title and nothing repeated, so the two screens read as one stream. The full post, with its title and from the start, lives on its own address (`/posts/<words>/`) for links, search engines and previews. A post opens whole, as before, when it has its own `excerpt`, a `cardQuote`, or anything beyond plain paragraphs and inline marks (lists, quotes, headings, designed posts). The split lives in `splitPost` in `lib/jayenn.js`. A momentary marker at the cut point was tried in many forms (underline, highlight, colour, scale, dot, fade) and rejected: anything that changes draws the eye back to the old text.
+

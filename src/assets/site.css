@@ -21,10 +21,13 @@ body:has(.feed){height:100dvh;overflow:hidden}
 .meta{margin:0;font-family:var(--frame);font-size:14px;color:var(--muted)}
 .card h2{margin:0;font-size:clamp(26px,7.5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.01em}
 .lede{margin:0;font-size:18px;font-weight:300;line-height:1.6;opacity:.88}
+.lede p{margin:0 0 .9em}
+.lede p:last-child{margin:0}
 .hint{position:absolute;right:16px;top:50%;width:auto;font-family:var(--frame);font-size:15px;color:var(--muted)}
 
 /* The full post, swiped in from the right; scrolls on its own */
 .post{overflow-y:auto;overscroll-behavior-y:contain;padding:128px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
+.post.cont{padding-top:88px}
 .post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
 .end{display:flex;justify-content:center;margin-top:44px}
 .back{display:block;margin:0;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:center}

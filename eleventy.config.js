@@ -3,7 +3,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { makeOgImages } from "./lib/og.js";
 import { writeFonts } from "./lib/fonts.js";
-import { slugify, postSlug, tagLine, settingFor, fontFamilies, fontLinks } from "./lib/jayenn.js";
+import { slugify, postSlug, tagLine, splitPost, settingFor, fontFamilies, fontLinks } from "./lib/jayenn.js";
 
 const PREVIEW = process.env.PREVIEW === "1"; // private preview links need relative URLs
 const POSTS = ["src/posts/*.md", "src/posts/*/index.md"];
@@ -40,6 +40,7 @@ export default function (eleventyConfig) {
   // Filters used in templates.
   eleventyConfig.addFilter("slug", slugify);
   eleventyConfig.addFilter("tagLine", tagLine);
+  eleventyConfig.addFilter("splitPost", splitPost);
   eleventyConfig.addFilter("setting", settingFor);
   eleventyConfig.addFilter("fontLinks", (posts) => fontLinks(fontFamilies(posts.map((p) => p.data))));
   eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString());
