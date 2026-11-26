@@ -1,7 +1,7 @@
 /* Jayenn — frame styles. Each post sets --bg --fg --muted --accent --font. */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :focus:not(:focus-visible){outline:none}
-:root{--frame:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;--bar-h:68px}
+:root{--frame:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;--bar-h:56px}
 html,body{margin:0;background:#141517;color:#eae8e3;font-family:var(--frame);-webkit-text-size-adjust:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
@@ -50,9 +50,9 @@ body:has(.feed){height:100dvh;overflow:hidden}
 .single .meta{margin-bottom:28px}.single .meta a{text-decoration:none;border-bottom:1px solid currentColor}
 
 /* Bottom bar: words only; hides while scrolling down */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;padding:4px 8px calc(12px + env(safe-area-inset-bottom));
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;padding:2px 8px calc(6px + env(safe-area-inset-bottom));
   background:color-mix(in srgb,#141517 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .3s ease}
-.bar a{flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;font-size:14px;color:#a9a7a1;text-decoration:none;transition:color .4s ease}
+.bar a{flex:1;display:flex;justify-content:center;align-items:center;min-height:44px;font-size:14px;color:#a9a7a1;text-decoration:none;transition:color .4s ease}
 .bar a[aria-current]{color:#f2f0eb;font-weight:500}
 .bar.hidden{transform:translateY(100%)}
 

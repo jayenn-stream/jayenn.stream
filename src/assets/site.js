@@ -16,7 +16,7 @@
 
   if (feed) {
     const rows = [...feed.querySelectorAll(".row")];
-    feed.addEventListener("scroll", () => onScroll(feed.scrollTop), { passive: true });
+    // The bar stays put on the feed: hiding it while you swipe between posts only made it jump around.
 
     // Swipe into a post: lock the feed so scrolling stays inside the post.
     for (const row of rows) {
