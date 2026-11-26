@@ -27,6 +27,11 @@ body:has(.feed){height:100dvh;overflow:hidden}
 .post{overflow-y:auto;overscroll-behavior-y:contain;padding:72px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
 .post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
 .back{display:block;margin:0 0 12px -12px;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:left}
+/* The way back stays with you while you read: it sticks to the top, fades while you scroll down, returns on scroll up. */
+.back,.single .meta{position:sticky;top:8px;z-index:3;transition:opacity .25s ease}
+.back{background:color-mix(in srgb,var(--bg) 82%,transparent);border-radius:12px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.single .meta{width:max-content;padding:4px 10px 4px 0;background:color-mix(in srgb,var(--bg) 82%,transparent)}
+.away{opacity:0;pointer-events:none}
 .post h1,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
 .body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
 
