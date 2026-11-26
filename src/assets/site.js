@@ -36,13 +36,6 @@
     // Back out of a post: the arrow button, or Escape.
     const closeRow = (row) => { row.scrollTo({ left: 0, behavior: "smooth" }); feed.classList.remove("locked"); row.querySelector(".card")?.focus({ preventScroll: true }); };
     for (const row of rows) row.querySelector(".back")?.addEventListener("click", () => closeRow(row));
-    // The arrow fades while you read down a post and comes back as soon as you scroll up.
-    for (const post of document.querySelectorAll(".post")) {
-      const back = post.querySelector(".back"); let prev = 0;
-      post.addEventListener("scroll", () => {
-        const y = post.scrollTop; back.classList.toggle("away", y > prev + 4 && y > 120); if (y < prev - 4 || y < 120) back.classList.remove("away"); prev = y;
-      }, { passive: true });
-    }
     addEventListener("keydown", (e) => { if (e.key !== "Escape") return; const open = rows.find((r) => r.scrollLeft > r.clientWidth / 2); if (open) closeRow(open); });
 
     // First visit only: nudge the first post sideways once, to show it can be swiped.
@@ -59,6 +52,10 @@
     const io = new IntersectionObserver((es) => {
       for (const e of es) if (e.isIntersecting && e.intersectionRatio > .6) {
         current = e.target; store.set("jayenn:at", current.id); railFrom(current);
+        // On the Here? post, the Here? tab is lit and Posts goes quiet.
+        const onHere = current.id === "here";
+        bar.querySelector("[data-posts]")?.toggleAttribute("aria-current", !onHere);
+        bar.querySelector("[data-here]")?.toggleAttribute("aria-current", onHere);
         rows.forEach((r) => r.classList.toggle("settled", r === current));
         if (++settledCount > 5) feed.classList.add("hinted");
       }
@@ -97,10 +94,6 @@
     });
   } else {
     addEventListener("scroll", () => onScroll(scrollY), { passive: true });
-    const meta = document.querySelector(".single .meta"); let prev = 0; // "← Posts" fades like the arrow
-    if (meta) addEventListener("scroll", () => {
-      const y = scrollY; meta.classList.toggle("away", y > prev + 4 && y > 120); if (y < prev - 4 || y < 120) meta.classList.remove("away"); prev = y;
-    }, { passive: true });
     const page = document.querySelector(".single");
     if (page) { const cs = getComputedStyle(page); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); }
     // Posts tab elsewhere: return to the post you were on.

@@ -32,8 +32,8 @@
 {{ content | safe }}
 <nav class="bar" id="bar" aria-label="Main">
   <a href="/subjects/"{% if nav == "subjects" %} aria-current="page"{% endif %}>Subjects</a>
-  <a href="/" data-posts{% if nav == "posts" %} aria-current="page"{% endif %}>Posts</a>
-  <a href="/#here">Here?</a>
+  <a href="/" data-posts{% if nav == "posts" and anchor != "here" %} aria-current="page"{% endif %}>Posts</a>
+  <a href="/#here" data-here{% if anchor == "here" %} aria-current="page"{% endif %}>Here?</a>
 </nav>
 <script src="/assets/site.js" defer></script>
 </body>
