@@ -5,7 +5,6 @@
   const store = { get(k){try{return sessionStorage.getItem(k)}catch{return null}}, set(k,v){try{sessionStorage.setItem(k,v)}catch{}} };
 
   // The bar is always visible: hiding it on scroll only made it jump around.
-  const showBar = () => bar.classList.remove("hidden");
 
   if (feed) {
     const rows = [...feed.querySelectorAll(".row")];
@@ -16,7 +15,6 @@
       row.addEventListener("scroll", () => {
         const open = row.scrollLeft > row.clientWidth / 2;
         feed.classList.toggle("locked", open);
-        if (open) showBar();
       }, { passive: true });
       const card = row.querySelector(".card");
       if (card) {
@@ -40,7 +38,7 @@
 
     // Remember which post you're on (for the Posts tab), and colour the desktop rail to match it.
     let current = rows[0], settledCount = 0;
-    const railFrom = (el) => { const cs = getComputedStyle(el); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); };
+    const railFrom = (el) => { const cs = getComputedStyle(el); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); bar.style.setProperty("--rail-bg", cs.getPropertyValue("--bg")); };
     if (current) railFrom(current);
     const io = new IntersectionObserver((es) => {
       for (const e of es) if (e.isIntersecting && e.intersectionRatio > .6) {
@@ -87,13 +85,12 @@
     });
   } else {
     const page = document.querySelector(".single");
-    if (page) { const cs = getComputedStyle(page); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); }
+    if (page) { const cs = getComputedStyle(page); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); bar.style.setProperty("--rail-bg", cs.getPropertyValue("--bg")); }
     // Posts tab elsewhere: return to the post you were on.
     const postsTab = bar.querySelector("[data-posts]");
     const at = store.get("jayenn:at");
     if (postsTab && at) postsTab.href = postsTab.getAttribute("href").replace(/(#.*)?$/, "#" + at);
   }
-  document.addEventListener("click", (e) => { if (!e.target.closest(".bar")) showBar(); });
 
   // Email: assembled here so simple bots don't find it in the page code.
   for (const a of document.querySelectorAll("a.mail")) {

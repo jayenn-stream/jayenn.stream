@@ -18,7 +18,7 @@ The tone is objective, not "my opinions": the author's name stays out of the nav
 
 ## Navigation
 
-- Phone and tablet: a bottom bar of words only: Subjects · Posts · Here? No icons. It slides away when scrolling down and returns on scroll up, tap, or pause. Desktop (900px and wider): the same three words as a slim list on the left.
+- Phone and tablet: a bottom bar of words only: Subjects · Posts · Here? No icons. It is always visible and never moves or scrolls: in the colours of the post on screen (its own background, text and muted colour), with a small line under the current word. Desktop (900px and wider): the same three words as a slim list on the left.
 - Posts is home. Tapping it returns you to the post you were on; tapping again goes to the newest.
 - Here? jumps to the Here? post (`/#here`), the orienting post with the motto "Streams of thought / For a belief I ought.". On that post the Here? tab is lit and Posts goes quiet.
 - No separate About page: everything comes through the feed.
