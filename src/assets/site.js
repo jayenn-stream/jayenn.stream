@@ -1,5 +1,5 @@
 // Jayenn — small enhancements. The site works without this file.
-(() => {
+(async () => {
   const feed = document.getElementById("feed");
   const bar = document.getElementById("bar");
   const store = { get(k){try{return sessionStorage.getItem(k)}catch{return null}}, set(k,v){try{sessionStorage.setItem(k,v)}catch{}} };
@@ -7,6 +7,20 @@
   // The bar is always visible: hiding it on scroll only made it jump around.
 
   if (feed) {
+    // A post's own page holds only that post (so search engines see it alone). For people, bring in the rest of the
+    // feed around it, so the page scrolls and swipes exactly as if they had arrived through the feed.
+    const solo = feed.hasAttribute("data-solo") ? feed.querySelector(".row") : null;
+    if (solo) {
+      try {
+        const doc = new DOMParser().parseFromString(await (await fetch("/")).text(), "text/html");
+        const all = [...doc.querySelectorAll("#feed .row")];
+        if (all.length) {
+          feed.replaceChildren(...all.map((r) => (r.id === solo.id ? solo : document.importNode(r, true))));
+          feed.scrollTop = solo.offsetTop;
+          const keys = document.querySelector(".keys"); if (keys) keys.textContent = "↑ ↓ posts · → open · ← back";
+        }
+      } catch {}
+    }
     const rows = [...feed.querySelectorAll(".row")];
     // The bar stays put on the feed: hiding it while you swipe between posts only made it jump around.
 
@@ -31,7 +45,7 @@
 
     // First visit only: nudge the first post sideways once, to show it can be swiped.
     let seen = false; try { seen = localStorage.getItem("jayenn:hinted") === "1"; localStorage.setItem("jayenn:hinted", "1"); } catch {}
-    const first = rows.find((r) => r.querySelector(".card"));
+    const first = solo || rows.find((r) => r.querySelector(".card"));
     if (!seen && first && !matchMedia("(prefers-reduced-motion: reduce)").matches && !location.hash) {
       setTimeout(() => { first.scrollTo({ left: 70, behavior: "smooth" }); setTimeout(() => first.scrollTo({ left: 0, behavior: "smooth" }), 650); }, 900);
     }

@@ -5,7 +5,7 @@ isPost: true
 ---
 {%- set post = { data: { title: title, main: main, secondary: secondary, anchor: anchor, excerpt: excerpt, cardQuote: cardQuote, font: font, colours: colours, date: page.date, page: page }, page: page, content: content } %}
 {%- set solo = true %}
-<main class="feed" id="feed">
+<main class="feed" id="feed" data-solo>
 {% include "row.njk" %}
 </main>
 <p class="keys" aria-hidden="true">← back · → open</p>
