@@ -19,7 +19,7 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 .card{position:relative;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 clamp(24px,7vw,64px) var(--bar-h);cursor:pointer;max-width:100%}
 .card>*{max-width:34rem;margin-left:auto;margin-right:auto;width:100%}
 .meta{margin:0;font-family:var(--frame);font-size:14px;color:var(--muted)}
-.card h2{margin:0;font-size:clamp(26px,7.5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.01em}
+.card h1,.card h2{margin:0;font-size:clamp(26px,7.5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.01em}
 .lede{margin:0;font-size:18px;font-weight:300;line-height:1.6;opacity:.88}
 .lede p{margin:0 0 .9em}
 .lede p:last-child{margin:0}
@@ -31,7 +31,7 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 .post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
 .end{display:flex;justify-content:center;margin-top:44px}
 .back{display:block;margin:0;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:center}
-.post h1,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
+.post h1,.post .ptitle,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
 .body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
 /* Plain Markdown extras, kept quiet: bold is clearly heavier than the light body, lists and quotes read like the text. */
 .body strong{font-weight:500}
@@ -67,7 +67,7 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
   .card,.post,.single,.page{padding-left:180px;padding-right:180px}
   .card{padding-bottom:0}
   .card>*{max-width:40rem}
-  .card h2{font-size:clamp(34px,3.4vw,48px)}
+  .card h1,.card h2{font-size:clamp(34px,3.4vw,48px)}
   .lede{font-size:21px}
   .post>*,.single article{max-width:40rem}
   .body p{font-size:19px}

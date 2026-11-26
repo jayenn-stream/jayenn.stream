@@ -21,6 +21,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPreprocessor("gaps", "md", (data, content) =>
     content.replace(/(?<=\S) {5,}(?=\S)/g, '<span class="gap"> </span>'));
 
+  // A draft is not built at all (no page, no sitemap entry). It still shows when you preview locally with "npm run serve".
+  eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+    if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") return false;
+  });
+
   // All published posts, newest first. "draft: true" keeps a post out.
   eleventyConfig.addCollection("posts", (api) =>
     (builtPosts = api.getFilteredByGlob(POSTS).filter((p) => !p.data.draft).sort(byDateDesc)));
@@ -51,6 +56,14 @@ export default function (eleventyConfig) {
     const f = (o) => new Date(d).toLocaleDateString("en-GB", { timeZone: "UTC", ...o }).toLowerCase();
     const [day, mon, month, yr] = [f({ day: "numeric" }), f({ month: "short" }), f({ month: "long" }), f({ year: "numeric" })];
     return `${day} ${mon} ${yr} ${day} ${month} ${yr} ${mon} ${month} ${yr}`;
+  });
+  // A post's search-result description: its own "description", or its opening words.
+  eleventyConfig.addFilter("metaDesc", (html) => {
+    const row = String(html).match(/<section class="row"[\s\S]*?<footer/);
+    const text = (row ? row[0] : String(html))
+      .replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/g, " ").replace(/<p class="quote">[\s\S]*?<\/p>/g, " ")
+      .replace(/<span class="hint"[\s\S]*?<\/span>/g, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    return text.length > 155 ? text.slice(0, 155).replace(/\s\S*$/, "") + "…" : text;
   });
   // Feed excerpt: the post's own "excerpt", or its first ~200 characters (gaps kept).
   eleventyConfig.addFilter("excerpt", (html, own) => {

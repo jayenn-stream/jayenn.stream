@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{%- set desc = description or ((content | metaDesc) if isPost else site.description) %}
 {%- set pageTitle = (heading + " · " + site.title) if heading else site.title %}
 <title>{{ pageTitle }}</title>
-<meta name="description" content="{{ description or site.description }}">
+<meta name="description" content="{{ desc }}">
 {%- if noindex %}<meta name="robots" content="noindex">{% endif %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <meta property="og:type" content="{{ 'article' if isPost else 'website' }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:title" content="{{ pageTitle }}">
-<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:description" content="{{ desc }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 {%- set ogSlug = (page.url | replace("/posts/", "") | replace("/", "")) if isPost else "site" %}
 <meta property="og:image" content="{{ site.url }}/og/{{ ogSlug }}.png">
@@ -33,7 +34,7 @@
 {{ content | safe }}
 <nav class="bar" id="bar" aria-label="Main">
   <a href="/subjects/"{% if nav == "subjects" %} aria-current="page"{% endif %}>Subjects</a>
-  <a href="/" data-posts{% if nav == "posts" and anchor != "here" %} aria-current="page"{% endif %}>Posts</a>
+  <a href="{% if nav == 'post' %}/#{{ anchor or page.fileSlug }}{% else %}/{% endif %}" data-posts{% if nav == "posts" and anchor != "here" %} aria-current="page"{% endif %}>Posts</a>
   <a href="/#here" data-here{% if anchor == "here" %} aria-current="page"{% endif %}>Here?</a>
 </nav>
 <script src="/assets/site.js" defer></script>

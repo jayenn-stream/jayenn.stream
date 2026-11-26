@@ -5,7 +5,7 @@
     {%- if post.data.cardQuote %}
     <p class="quote">{{ post.data.cardQuote | safe }}</p>
     {%- else %}
-    <h2>{{ post.data | tagLine }}</h2>
+    {%- if solo %}<h1>{{ post.data | tagLine }}</h1>{% else %}<h2>{{ post.data | tagLine }}</h2>{% endif %}
     {%- if sp %}
     <div class="lede">{{ sp.lede | safe }}</div>
     {%- else %}
@@ -16,10 +16,10 @@
   </article>
   <div class="post{% if sp %} cont{% endif %}">
     {%- if sp %}
-    <h1 class="sr">{{ post.data | tagLine }}</h1>
+    <h2 class="sr">{{ post.data | tagLine }}</h2>
     {%- if sp.rest %}<div class="body">{{ sp.rest | safe }}</div>{% endif %}
     {%- else %}
-    <h1>{{ post.data | tagLine }}</h1>
+    {%- if solo and not post.data.cardQuote %}<h2 class="ptitle">{{ post.data | tagLine }}</h2>{% else %}<h1>{{ post.data | tagLine }}</h1>{% endif %}
     <div class="body">{{ post.content | safe }}</div>
     {%- endif %}
     {% set d = post.data %}{% include "footer.njk" %}

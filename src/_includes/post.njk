@@ -1,15 +1,11 @@
 ---
 layout: base.njk
-nav: posts
+nav: post
 isPost: true
 ---
-{%- set s = { data: {page: page, font: font, colours: colours} } %}
-{%- set st = s.data | setting(palettes) %}
-<main class="single" style="--bg:{{ st.bg }};--fg:{{ st.fg }};--muted:{{ st.muted }};--accent:{{ st.accent }};--font:'{{ st.font }}'">
-  <article>
-    <p class="meta"><a href="/#{{ anchor or page.fileSlug }}">← Posts</a></p>
-    <h1>{{ heading }}</h1>
-    <div class="body">{{ content | safe }}</div>
-    {% set d = { page: page, main: main, secondary: secondary, title: title, date: page.date } %}{% include "footer.njk" %}
-  </article>
+{%- set post = { data: { title: title, main: main, secondary: secondary, anchor: anchor, excerpt: excerpt, cardQuote: cardQuote, font: font, colours: colours, date: page.date, page: page }, page: page, content: content } %}
+{%- set solo = true %}
+<main class="feed" id="feed">
+{% include "row.njk" %}
 </main>
+<p class="keys" aria-hidden="true">← back · → open</p>
