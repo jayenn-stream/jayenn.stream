@@ -4,7 +4,7 @@ Streams of thought, published as a quiet, one-post-per-screen site. Plain Markdo
 
 ## The short version
 
-**To publish a post:** add a Markdown file to `src/posts/`, save it to GitHub, done. The site rebuilds itself and the post appears at the top of the feed, in Subjects, in search, in the RSS feed, with its own link-preview image.
+**To publish a post:** follow `POSTING.md`. In short: add a Markdown file to `src/posts/`, save it to GitHub, done. The site rebuilds itself and the post appears at the top of the feed, in Subjects, in search, in the RSS feed, with its own link-preview image.
 
 **To edit a post:** change the file and give it today's `date`. It moves back to the top.
 
@@ -110,60 +110,11 @@ npm run serve      # live preview at http://localhost:8080
 npm run build      # makes the finished site in _site/
 ```
 
-## Turning your writing into a post (with an AI)
+## Posting with an AI
 
-**Safest: the AI writes only the header, and you paste your own words.** An AI that retypes your writing can change it without telling you: swapping five spaces for no-break spaces (which stops the gap showing), straightening or curling quotes, or leaving invisible characters. If it never retypes your words, none of that can happen, and nothing of the AI's goes into your text. Save this prompt in your chatbot's custom instructions, project or "Gem", then paste your writing and the list of current subjects (the Subjects tab, or the `main:` lines in `src/posts/`).
+See **POSTING.md** for the whole day-to-day workflow (prompt, file, publish, check, edit). The AI writes only the header; you paste your own words under it, so nothing of the AI's goes into your text.
 
-> You prepare the header and file name for one post on my site, jayenn.stream. **Do not output my writing at all, and never change it.** Output only:
-> 1. The file name: `YYYY-MM-DD-a-few-words.md` (today's date, then two to four lowercase words from the post, joined by hyphens).
-> 2. The header, in one code block, between two `---` lines: `title:` (see rule 4); `date: YYYY-MM-DD` (today unless I say otherwise); `main: [...]`, one to three broad subjects; `secondary: [...]`, finer threads, examples or analogies from the post, as many as help searching.
-> 3. **Tags:** lowercase, singular ("habit", not "Habits"). Reuse a subject from my list when one fits; if none does, suggest a new one and say so. Never invent a near-duplicate of an existing tag.
-> 4. **The title is mine.** It names what I regard as the post's ultimate points, as one title or several separated by commas. If I haven't given one, leave `title:` out and suggest two or three candidates in your reply.
-> 5. Leave out `font`, `colours` and `excerpt` unless I ask. Add `draft: true` only if I say it isn't ready.
-> 6. If you're unsure which subject fits, ask me one short question first.
-
-Then make the file yourself: copy `docs/post-template.md`, replace its header with the AI's, and paste your own writing under the second `---`. Check the tags, then follow "Adding a post, step by step" below.
-
-**If you do want the AI to give you the whole file,** add to the prompt: "Then output the whole file, with my writing copied exactly: every run of five spaces between words, every five dots (`.....`), and all my punctuation and capitalisation unchanged." The build will warn if the result contains invisible characters (see below), but it cannot tell you the AI changed a word, so read the file through.
-
-**Invisible characters.** The build checks every post for zero-width marks, no-break spaces and similar. If it finds any, the build log shows a line starting `[jayenn] src/posts/…` with the file, the line number and the character codes. (On GitHub: **Actions** tab → the latest run → **build** → the **Run npm run build** step.) It only warns; it never edits your words. To fix a flagged line, retype it, or paste it as plain text. GitHub also shows a warning banner above a file containing hidden Unicode.
-
-## Adding a post, step by step
-
-A worked example: the post written on 26 Nov 2026, "justified true belief". The whole process takes about five minutes.
-
-**1. Turn the writing into a post file.** (Or do it by hand: copy `docs/post-template.md`, fill in the date and tags, paste your writing under the second `---`, and name the file `YYYY-MM-DD-a-few-words.md`. It must be saved in `src/posts/`, not left in `docs/`.) Open your chatbot with the prompt saved from the section above, then paste your writing and the current subjects. It returns a file name and the file. For this post:
-
-File name: `2026-11-26-justified-true-belief.md`
-
-```markdown
----
-title: Knowledge of objects
-date: 2026-11-26
-main: [knowledge]
-secondary: [justified true belief, propositional knowledge, sensory experience]
----
-Knowledge is justified true belief, it is said.     Is my sensory experience of any close object here now, a phone, a tv cabinet, etc not knowledge of those things?.     It is. So, that knowledge originally spoken about must implicitly mean propostional knowledge.     I vaguely recall SEP says this near the top. Yes it does.
-```
-
-Your words are never changed, typos included ("propostional" stays as written until you fix it yourself). The gaps are five spaces.
-
-**2. Check the title and tags.** The title is your own wording for the post's ultimate points (several can be separated by commas). Reuse an existing subject if one fits (the Subjects tab lists them). A new `main` tag creates a new subject, so make it deliberately: lowercase, singular. Secondary tags are free.
-
-**3. Add it to GitHub.** In the repo, open the `src` folder, then `posts`. Click **Add file → Create new file**. Type the file name in the name box. Paste the file's text, five spaces included, into the editor. Click **Commit changes**.
-
-To keep a post off the site until you're ready, add `draft: true` under the date. Remove that line later and commit to publish it.
-
-**4. Wait for the build.** Open the **Actions** tab. A green tick in about a minute means it's live. A red cross means a mistake in the file (a missing `---`, a bad date): open the run and read the error, or send it to the chatbot.
-
-**5. Check the result.** Open jayenn.stream, force-refresh, and look for these:
-- The post is first in the feed, as one screen of text, with no date and no tags.
-- Swiping (or tapping, or →) opens the whole post. The tags and date are at the end, with the ← below them.
-- The five-space gaps appear as wider gaps in the text.
-- The Subjects tab shows the new subject, and the Titles tab lists the post.
-- Pasting the post's link into a message shows a preview image.
-
-**Changing a post later.** Open the file in `src/posts/`, click the pencil, edit, and commit. A substantially changed post gets a new `date` so it moves to the top; fixing a typo can keep the old date.
+**Invisible characters.** The build checks every post for zero-width marks, no-break spaces and similar. If it finds any, the build log shows a line starting `[jayenn] src/posts/…` with the file, the line number and the character codes. (On GitHub: **Actions** tab → the latest run → **build** → the **Run npm run build** step.) It only warns; it never edits your words. To fix a flagged line, retype it, or paste it as plain text.
 
 ## Working with an AI chatbot
 
