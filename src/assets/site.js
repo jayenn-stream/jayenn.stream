@@ -4,7 +4,8 @@
   const bar = document.getElementById("bar");
   const store = { get(k){try{return sessionStorage.getItem(k)}catch{return null}}, set(k,v){try{sessionStorage.setItem(k,v)}catch{}} };
 
-  // The bar is always visible: hiding it on scroll only made it jump around.
+  // The bar takes the colours of what's on screen.
+  const railFrom = (el) => { const cs = getComputedStyle(el); for (const k of ["fg", "muted", "bg"]) bar.style.setProperty(`--rail-${k}`, cs.getPropertyValue(`--${k}`)); };
 
   if (feed) {
     // A post's own page holds only that post (so search engines see it alone). For people, bring in the rest of the
@@ -22,7 +23,6 @@
       } catch {}
     }
     const rows = [...feed.querySelectorAll(".row")];
-    // The bar stays put on the feed: hiding it while you swipe between posts only made it jump around.
 
     // Swipe into a post: lock the feed so scrolling stays inside the post.
     for (const row of rows) {
@@ -50,9 +50,8 @@
       setTimeout(() => { first.scrollTo({ left: 70, behavior: "smooth" }); setTimeout(() => first.scrollTo({ left: 0, behavior: "smooth" }), 650); }, 900);
     }
 
-    // Remember which post you're on (for the Posts tab), and colour the desktop rail to match it.
+    // Remember which post you're on (for the Posts tab), and colour the bar to match it.
     let current = rows[0], settledCount = 0;
-    const railFrom = (el) => { const cs = getComputedStyle(el); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); bar.style.setProperty("--rail-bg", cs.getPropertyValue("--bg")); };
     if (current) railFrom(current);
     const io = new IntersectionObserver((es) => {
       for (const e of es) if (e.isIntersecting && e.intersectionRatio > .6) {
@@ -77,7 +76,7 @@
     });
     rows.forEach((r) => io.observe(r));
 
-    // Jump to #here, #motto or any post id; close any open post first.
+    // Jump to #here or any post id; close any open post first.
     const jump = () => {
       const id = decodeURIComponent(location.hash.slice(1));
       const el = id && document.getElementById(id);
@@ -98,8 +97,6 @@
       feed.scrollTo({ top: 0, behavior: "smooth" });
     });
   } else {
-    const page = document.querySelector(".single");
-    if (page) { const cs = getComputedStyle(page); bar.style.setProperty("--rail-fg", cs.getPropertyValue("--fg")); bar.style.setProperty("--rail-muted", cs.getPropertyValue("--muted")); bar.style.setProperty("--rail-bg", cs.getPropertyValue("--bg")); }
     // Posts tab elsewhere: return to the post you were on.
     const postsTab = bar.querySelector("[data-posts]");
     const at = store.get("jayenn:at");

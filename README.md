@@ -13,7 +13,7 @@ Streams of thought, published as a quiet, one-post-per-screen site. Plain Markdo
 ## The folders
 
 ```
-jayenn-site/
+jayenn.stream/
 ├── src/                     ← everything the site is made from
 │   ├── posts/               ← YOUR WRITING. One file per post (or one folder for a designed post)
 │   │   ├── 2026-11-16-here.md          the Here? post (motto + what the site is)
@@ -33,18 +33,23 @@ jayenn-site/
 │   │   └── footer.njk           the end of a post: tags, date, share
 │   ├── assets/
 │   │   ├── site.css         ← the whole look of the frame
-│   │   ├── site.js          ← small extras: swipe lock, hiding bar, keys, search
+│   │   ├── site.js          ← small extras: swipe, bar colours, keys, search
 │   │   └── icons/           ← j.s icons
 │   ├── index.njk            the feed (home)
 │   ├── subjects.njk         the Subjects page: search, Subjects / Titles
 │   ├── subject.njk          one feed per subject
+│   ├── post-prompt.njk      the private page with the Copy prompt button (jayenn.stream/post-prompt/)
 │   ├── 404.njk              "No words here."
 │   └── feed.njk, sitemap.njk, robots.njk, webmanifest.njk   made automatically
 ├── lib/
-│   ├── jayenn.js            shared rules: settings, headings, fonts
+│   ├── jayenn.js            shared rules: settings, headings, fonts, the card/continuation split
 │   ├── fonts.js             self-hosted fonts: copies files, writes assets/fonts.css
 │   └── og.js                makes the link-preview images
-├── eleventy.config.js       the build: collects posts, makes subjects, checks contrast
+├── docs/
+│   ├── design.md            the design decisions and why
+│   └── post-template.md     copy this to start a post
+├── eleventy.config.js       the build: collects posts, makes subjects, checks contrast and invisible characters
+├── POSTING.md               the day-to-day posting steps
 ├── AGENTS.md                instructions for any AI working on the site
 └── _site/                   the finished website (made by the build; never edit)
 ```
@@ -71,7 +76,7 @@ The writing starts here.     A five-space gap before an undecided next thought.
 | `date` | When the thought took this form. Decides its place in the feed (newest first). | Yes |
 | `main` | Broad subjects, one to three. Each one gets a place in Subjects. | Yes (at least one) |
 | `secondary` | Finer threads, as many as help searching. Shown faintly at the end of the post; searchable. | Optional |
-| `title` | The heading: what you regard as the post's ultimate points. Write one, or several separated by semicolons (`A; B` shows as "A · B"). Commas in a title stay commas. Without one, the heading falls back to the tag line ("On time, attention, running…"). | Recommended |
+| `title` | The heading: what you regard as the post's ultimate points. Write one, or several separated by semicolons (`a; b` shows as "A · B"). Each part gets a capital first letter automatically. Commas in a title stay commas. Without a separator the site can't tell where one title ends, so it stays as one. Without one, the heading falls back to the tag line ("On time, attention, running…"). | Recommended |
 | `font` | Any installed font (see "A font" below). Blank = picked for you. | Optional |
 | `colours` | A palette name from `palettes.json`, or your own (see below). Blank = picked for you. | Optional |
 | `excerpt` | The words shown on the feed screen. Blank = the post's first lines. | Optional |

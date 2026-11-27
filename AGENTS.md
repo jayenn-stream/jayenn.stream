@@ -1,10 +1,10 @@
 # Instructions for AI assistants working on jayenn.stream
 
-Read README.md first. It explains the folders, the post header and how publishing works.
+Read README.md first. It explains the folders, the post header and how publishing works. Then read `docs/design.md`: the decisions already made and why, so don't undo them.
 
 ## The site in one paragraph
 
-A personal site of philosophical streams of thought by "Jayenn". Spacious, quiet, words first. The feed shows one post per screen, snapping as you scroll; swiping left (or tapping, or →) opens the full post sideways in the same setting. Every post has its own font and colours. A bottom bar (a slim left list on desktop) reads Subjects · Posts · Here?. The tone is objective, not personal: keep the author's name out of navigation.
+A personal site of philosophical streams of thought by "Jayenn". Spacious, quiet, words first. The feed shows one post per screen, snapping as you scroll; swiping left (or tapping, or →) shows the rest of the post sideways, carrying on from the card without repeating it. A post's own address shows the same thing. Every post has its own font and colours. A bottom bar (a slim left list on desktop) reads Subjects · Posts · Here?. The tone is objective, not personal: keep the author's name out of navigation.
 
 ## Rules
 

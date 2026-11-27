@@ -13,7 +13,7 @@ The tone is objective, not "my opinions": the author's name stays out of the nav
 - Homepage. Newest post first. One post per screen; scrolling snaps to the next.
 - Text is always centred on the screen. Each post has its own font and palette (from `src/_data/palettes.json` and the font list in `lib/jayenn.js`), and every palette must pass WCAG AA contrast.
 - No dates and no tags on feed screens. A small → shows that the post can be opened.
-- From a feed screen, swiping left (or tapping, or the → key) opens the full post sideways, in the same setting. Scrolling inside a post never moves on to the next post: go back out to the feed first.
+- From a feed screen, swiping left (or tapping, or the → key) opens the post sideways, in the same setting: the rest of it, carrying on from where the card stopped (see the last section). Scrolling inside a post never moves on to the next post: go back out to the feed first.
 - Back out with a swipe right, Escape, the ← key, or the ← at the very end of the post (centred, after the tags and date). It was tried fixed at the top and rejected as too present.
 
 ## Navigation
@@ -60,5 +60,5 @@ The tone is objective, not "my opinions": the author's name stays out of the nav
 
 ## The swiped-to screen continues the card
 
-On the feed, the card shows the title and the opening of the post, cut at the end of a sentence (about 240 characters, up to 380 if the first sentence is long). Swiping across shows the rest of the post from that point, with no title and nothing repeated, so the two screens read as one stream. The full post, with its title and from the start, lives on its own address (`/posts/<words>/`) for links, search engines and previews. A post opens whole, as before, when it has its own `excerpt`, a `cardQuote`, or anything beyond plain paragraphs and inline marks (lists, quotes, headings, designed posts). The split lives in `splitPost` in `lib/jayenn.js`. A momentary marker at the cut point was tried in many forms (underline, highlight, colour, scale, dot, fade) and rejected: anything that changes draws the eye back to the old text.
+On the feed, the card shows the title and the opening of the post, cut at the end of a sentence (about 240 characters, up to 380 if the first sentence is long). Swiping across shows the rest of the post from that point, with no title and nothing repeated, so the two screens read as one stream. Each post also has its own address (`/posts/<words>/`), used by the share button, search engines and link previews. It shows the same card and continuation; its page holds only that post, so search engines read it alone, and the browser then brings in the other posts around it so the page scrolls like the feed. A post opens whole, as before, when it has its own `excerpt`, a `cardQuote`, or anything beyond plain paragraphs and inline marks (lists, quotes, headings, designed posts). The split lives in `splitPost` in `lib/jayenn.js`. A momentary marker at the cut point was tried in many forms (underline, highlight, colour, scale, dot, fade) and rejected: anything that changes draws the eye back to the old text.
 

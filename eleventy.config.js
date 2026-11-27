@@ -21,12 +21,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addPreprocessor("gaps", "md", (data, content) =>
     content.replace(/(?<=\S) {5,}(?=\S)/g, '<span class="gap"> </span>'));
 
-  // A draft is not built at all (no page, no sitemap entry). It still shows when you preview locally with "npm run serve".
+  // A draft is not built at all on GitHub (no page, no sitemap entry). With "npm run serve" on your own computer
+  // its own page still exists, so you can look at it; it stays out of the feed either way.
   eleventyConfig.addPreprocessor("drafts", "*", (data) => {
     if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") return false;
   });
 
-  // All published posts, newest first. "draft: true" keeps a post out.
+  // All published posts, newest first.
   eleventyConfig.addCollection("posts", (api) =>
     (builtPosts = api.getFilteredByGlob(POSTS).filter((p) => !p.data.draft).sort(byDateDesc)));
 
@@ -65,7 +66,7 @@ export default function (eleventyConfig) {
       .replace(/<span class="hint"[\s\S]*?<\/span>/g, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
     return text.length > 155 ? text.slice(0, 155).replace(/\s\S*$/, "") + "…" : text;
   });
-  // Feed excerpt: the post's own "excerpt", or its first ~200 characters (gaps kept).
+  // Feed excerpt when a post isn't split (see splitPost): its own "excerpt", or its first ~200 characters (gaps kept).
   eleventyConfig.addFilter("excerpt", (html, own) => {
     if (own) return own;
     const gap = '<span class="gap"> </span>', mark = "⁣";

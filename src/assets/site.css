@@ -1,4 +1,6 @@
 /* Jayenn — frame styles. Each post sets --bg --fg --muted --accent --font. */
+/* Visually hidden, still read by screen readers and search engines */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :focus:not(:focus-visible){outline:none}
 :root{--frame:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;--bar-h:56px}
@@ -18,20 +20,19 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 /* Feed screen: always centred */
 .card{position:relative;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 clamp(24px,7vw,64px) var(--bar-h);cursor:pointer;max-width:100%}
 .card>*{max-width:34rem;margin-left:auto;margin-right:auto;width:100%}
-.meta{margin:0;font-family:var(--frame);font-size:14px;color:var(--muted)}
 .card h1,.card h2{margin:0;font-size:clamp(26px,7.5vw,38px);font-weight:400;line-height:1.2;letter-spacing:-.01em}
 .lede{margin:0;font-size:18px;font-weight:300;line-height:1.6;opacity:.88}
 .lede p{margin:0 0 .9em}
 .lede p:last-child{margin:0}
 .hint{position:absolute;right:16px;top:50%;width:auto;font-family:var(--frame);font-size:15px;color:var(--muted)}
 
-/* The full post, swiped in from the right; scrolls on its own */
+/* The post, swiped in from the right; scrolls on its own. "cont" = it carries on from the card, with no title. */
 .post{overflow-y:auto;overscroll-behavior-y:contain;padding:128px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
 .post.cont{padding-top:88px}
-.post>*,.single article{max-width:36rem;margin-left:auto;margin-right:auto}
+.post>*{max-width:36rem;margin-left:auto;margin-right:auto}
 .end{display:flex;justify-content:center;margin-top:44px}
 .back{display:block;margin:0;min-width:44px;min-height:44px;padding:0 12px;background:none;border:0;font-family:var(--frame);font-size:18px;color:var(--muted);cursor:pointer;text-align:center}
-.post h1,.post .ptitle,.single h1{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
+.post h1,.post .ptitle{margin:0 auto 28px;font-size:clamp(28px,7.5vw,40px);font-weight:400;line-height:1.2}
 .body p{font-size:18px;font-weight:300;line-height:1.75;margin:0 0 1.2em}
 /* Plain Markdown extras, kept quiet: bold is clearly heavier than the light body, lists and quotes read like the text. */
 .body strong{font-weight:500}
@@ -41,35 +42,28 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 .body hr{border:0;border-top:1px solid currentColor;opacity:.2;margin:2em 0}
 .body a{color:var(--accent);text-underline-offset:3px}
 
-
 /* The five space: an undecided gap between thoughts */
 .gap{display:inline-block;width:2.2em}
 
-/* Standalone post page */
-.single{min-height:100dvh;background:var(--bg);color:var(--fg);font-family:var(--font),var(--frame);padding:56px clamp(24px,7vw,64px) calc(var(--bar-h) + 64px)}
-.single .meta{margin-bottom:28px}.single .meta a{text-decoration:none;border-bottom:1px solid currentColor}
-
-/* Bottom bar: words only; hides while scrolling down */
+/* Bottom bar: words only, always visible, in the colours of what's on screen, with a small line under the current word */
 .bar{touch-action:none;position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;padding:2px 8px calc(6px + env(safe-area-inset-bottom));
   background:var(--rail-bg,#f6f3ec);transition:background .4s ease}
-/* Words only, in the colours of the post on screen, with a small line under the current one. */
 .bar a{position:relative;flex:1;display:flex;justify-content:center;align-items:center;min-height:44px;font-size:14px;color:var(--rail-muted,#6a655c);text-decoration:none;transition:color .4s ease}
 .bar a[aria-current]{color:var(--rail-fg,#22201c);font-weight:500}
 .bar a[aria-current]::after{content:"";position:absolute;left:50%;bottom:5px;width:16px;height:1.5px;margin-left:-8px;background:currentColor}
 
-/* Desktop: the bar becomes a slim side rail */
+/* Desktop: the bar becomes a slim list on the left */
 @media (min-width:900px){
-  /* Desktop: the bar becomes a slim list on the left, in the colours of what's on screen */
-  .bar{top:0;right:auto;bottom:0;width:140px;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 0 0 40px;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .bar{top:0;right:auto;bottom:0;width:140px;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 0 0 40px;background:transparent}
   .bar a{flex:0;justify-content:flex-start;min-height:44px;color:var(--rail-muted,#6a655c)}
   .bar a[aria-current]{color:var(--rail-fg,#22201c)}
   .bar a[aria-current]::after{display:none}
-  .card,.post,.single,.page{padding-left:180px;padding-right:180px}
+  .card,.post,.page{padding-left:180px;padding-right:180px}
   .card{padding-bottom:0}
   .card>*{max-width:40rem}
   .card h1,.card h2{font-size:clamp(34px,3.4vw,48px)}
   .lede{font-size:21px}
-  .post>*,.single article{max-width:40rem}
+  .post>*{max-width:40rem}
   .body p{font-size:19px}
   .hint{right:calc(180px + (100% - 360px - min(40rem, 100% - 360px)) / 2 - 44px)}
   .keys{display:block}
@@ -78,16 +72,10 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 @media (hover:none){.keys{display:none!important}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
-/* The motto: stands out on its card and at the top of the Here? post */
+/* The motto, on the Here? card */
 .card.quoted{align-items:center;text-align:center}
 .quote{margin:0;font-family:'Jost',var(--frame);font-size:clamp(28px,8vw,40px);font-weight:300;line-height:1.3}
 .follow{font-family:var(--frame);font-size:15px}
-.motto{margin:8px auto 40px;text-align:left}
-.motto blockquote{margin:0}
-.motto p{margin:0 0 14px;font-family:'Jost',var(--frame);font-size:clamp(28px,8vw,40px);font-weight:300;line-height:1.3}
-.meta.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-
-
 
 /* Post footer: tags, then date with share */
 .pfoot{margin-top:28px;font-family:var(--frame);font-size:13px;line-height:1.55;color:var(--muted)}
@@ -125,7 +113,6 @@ html:has(.feed),body:has(.feed){height:100dvh;overflow:hidden}
 .label{font:400 12px var(--frame);color:#6a655c;margin:22px 0 2px}
 .none{color:#6a655c}
 mark{background:#ecdcae;color:inherit;padding:0 2px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* The → on a settled feed screen drifts gently, as a quiet "this way". Stops after a few posts. */
 @keyframes nudge{0%,60%,100%{transform:translateX(0)}30%{transform:translateX(6px)}}
@@ -133,17 +120,19 @@ mark{background:#ecdcae;color:inherit;padding:0 2px}
 .feed.hinted .hint{animation:none}
 @media (prefers-reduced-motion:reduce){.row.settled .hint{animation:none}}
 
-/* Page not found: quiet, left-aligned */
+/* The post-prompt page */
 .prompt h1{margin:0 0 14px;font-size:clamp(26px,6vw,36px);font-weight:300;font-family:var(--frame)}
 .prompt p{font-family:var(--frame);font-size:15px;line-height:1.5}
 .prompt .copy{display:block;width:100%;min-height:52px;margin:18px 0;font:500 17px var(--frame);color:inherit;background:none;border:1px solid currentColor;border-radius:8px;cursor:pointer}
 .prompt textarea{display:block;width:100%;box-sizing:border-box;font:14px/1.5 var(--frame);color:inherit;background:none;border:1px solid rgba(128,128,128,.4);border-radius:8px;padding:12px}
 .prompt a{color:inherit}
+
+/* Page not found: quiet, left-aligned */
 .lost{display:flex;flex-direction:column;justify-content:center;font-family:var(--frame)}
 .lost h1{margin:0 0 18px;font-size:clamp(26px,6vw,36px);font-weight:300;line-height:1.25}
 .lost a{font-size:15px;color:#7a5b2e;text-decoration:none;padding:10px 0}
 
-/* Dark mode: the Subjects and not-found pages follow the phone or computer's setting */
+/* Dark mode: the Subjects, not-found and post-prompt pages follow the phone or computer's setting */
 @media (prefers-color-scheme:dark){
   .page{background:#1b1d1f;color:#eae8e3}
   .search input{background:#2a2d30;color:#eae8e3}
