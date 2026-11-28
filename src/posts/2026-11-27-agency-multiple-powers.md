@@ -6,7 +6,7 @@
 #     They needn't match the title, but they must differ from every other post's words. Don't change them later: it breaks old links.
 #   - The name must end in .md (not .md.txt).
 # Delete these comment lines in your copy if you like.
-title: Agency is multiple powers; No Cosmic Sameness
+title: Agency is multiple powers, No Cosmic Sameness
 date: 2026-11-28
 main: [agency, capability]
 secondary: [determination, sameness, action, power, multiplicity]
